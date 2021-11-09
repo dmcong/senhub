@@ -1,72 +1,53 @@
-import { useCallback, useEffect, useState } from 'react'
-import { useHistory } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
-
-import { Row, Col, Typography } from 'antd'
-import AppIcon from 'os/components/appIcon'
-
-import SearchEngine from './searchEngine'
-import { RootDispatch, RootState } from 'os/store'
-import { setLoading } from 'os/store/search.reducer'
-
-let searching: ReturnType<typeof setTimeout> | undefined
+import { Row, Col } from 'antd'
+import BannerStore from './bannerStore'
+import AppSuggest from './appCategory'
+import { useState } from 'react'
+import AllApp from './allApp'
 
 const Market = () => {
-  const history = useHistory()
-  const dispatch = useDispatch<RootDispatch>()
-  const [appIds, setAppIds] = useState<string[]>()
-  const { value } = useSelector((state: RootState) => state.search)
-  const { register } = useSelector((state: RootState) => state.page)
+  const [infoViewAll, setInfoViewAll] = useState<{
+    isOpen: boolean
+    appIds: AppIds
+    title: string
+  }>({
+    isOpen: false,
+    appIds: [],
+    title: '',
+  })
 
-  const to = (appId: string) => history.push(`/store/${appId}`)
+  const onGotoViewAll = (appIds: AppIds, title: string) => {
+    setInfoViewAll({ isOpen: true, appIds, title })
+  }
+  const onBackViewAll = () => {
+    setInfoViewAll({ isOpen: false, appIds: [], title: '' })
+  }
 
-  const onSearch = useCallback(async () => {
-    const engine = new SearchEngine(register)
-    await dispatch(setLoading(true))
-    if (searching) {
-      clearTimeout(searching)
-      searching = undefined
-    }
-    if (!value) {
-      await setAppIds(undefined)
-      await dispatch(setLoading(false))
-    }
-    searching = setTimeout(async () => {
-      const appIds = engine.search(value)
-      await setAppIds(appIds)
-      await dispatch(setLoading(false))
-      return window.scrollTo(0, 0)
-    }, 1000)
-  }, [value, dispatch, register])
-
-  useEffect(() => {
-    onSearch()
-  }, [onSearch])
+  if (infoViewAll.isOpen)
+    return <AllApp {...infoViewAll} onBack={onBackViewAll} />
 
   return (
     <Row gutter={[16, 24]}>
-      {appIds?.length ? (
-        <Col span={24}>
-          <Typography.Title level={4} type="secondary">
-            Search Results
-          </Typography.Title>
-        </Col>
-      ) : null}
-      {appIds?.map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
-        </Col>
-      ))}
       <Col span={24}>
-        <Typography.Title level={4} type="secondary">
-          All applications
-        </Typography.Title>
+        <BannerStore />
       </Col>
-      {Object.keys(register).map((appId) => (
-        <Col key={appId}>
-          <AppIcon appId={appId} onClick={() => to(appId)} />
-        </Col>
-      ))}
+      <Col span={24}>
+        <AppSuggest
+          onSeeAll={onGotoViewAll}
+          title="Suggested for you"
+          subTitle="Ads"
+          category="suggest"
+        />
+      </Col>
+      <Col span={24}>
+        <AppSuggest
+          onSeeAll={onGotoViewAll}
+          title="Top dapps"
+          category="top-dapps"
+        />
+      </Col>
+      <Col span={24}>
+        <AppSuggest onSeeAll={onGotoViewAll} title="Other" category="other" />
+      </Col>
     </Row>
   )
 }
