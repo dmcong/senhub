@@ -26,7 +26,7 @@ const Market = () => {
     return <AllApp {...infoViewAll} onBack={onBackViewAll} />
 
   return (
-    <Row gutter={[16, 24]}>
+    <Row gutter={[16, 48]}>
       <Col span={24}>
         <BannerStore />
       </Col>

@@ -1,4 +1,4 @@
-import { Button, Col, Row, Skeleton, Typography } from 'antd'
+import { Button, Card, Col, Row, Skeleton, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import { RemoteStatic } from 'os/components/appLoader'
 import { RootState } from 'os/store'
@@ -6,7 +6,7 @@ import { installApp } from 'os/store/page.reducer'
 import { Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
-import IonIcon from 'shared/ionicon'
+
 
 export default function AppCard(props: { appId: string }) {
   const history = useHistory()
@@ -40,77 +40,55 @@ export default function AppCard(props: { appId: string }) {
         type="panel"
         manifest={manifest}
         render={(src) => (
-          <Row
-            align="bottom"
+          <Card
             style={{
               backgroundImage: `url(${src})`,
-              height: 250,
+              width: 334,
+              height: 252,
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
-              borderRadius: 8,
               cursor: 'pointer',
+              overflow: 'hidden',
+              boxShadow: 'none',
             }}
+            bodyStyle={{ padding: 0, height: '100%' }}
             key={appId}
             onClick={() => to(appId)}
           >
-            <Col
-              span={24}
-              style={{
-                backdropFilter: 'blur(50px)',
-                background: 'rgba(0, 0, 0, 0.3)',
-                padding: 8,
-                borderRadius: 8,
-              }}
-            >
-              <Row align="middle" gutter={[8, 8]}>
-                <Col>
-                  <AppIcon size={40} appId={appId} name={false} />
-                </Col>
-                <Col flex="auto">
-                  <Typography.Title style={{ color: '#FFFFFF' }} level={5}>
-                    {appData.name}
-                  </Typography.Title>
-                  <Typography.Text style={{ color: '#FFFFFF' }}>
-                    {appData.author.name}
-                  </Typography.Text>
-                </Col>
-                <Col>
-                  {appIds.includes(appId) ? (
-                    <Button
-                      type="primary"
-                      icon={
-                        <IonIcon
-                          style={{ color: '#16FB48' }}
-                          name="checkmark-outline"
-                        />
-                      }
-                      style={{
-                        background: 'rgba(0, 0, 0, 0.3)',
-                        backdropFilter: 'blur(50px)',
-                        border: 'unset',
-                      }}
-                    >
-                      Installed
-                    </Button>
-                  ) : (
-                    <Button
-                      type="primary"
-                      icon={<IonIcon name="cloud-download-outline" />}
-                      onClick={onInstall}
-                      style={{
-                        background: 'rgba(0, 0, 0, 0.3)',
-                        backdropFilter: 'blur(50px)',
-                        border: 'unset',
-                      }}
-                    >
-                      Install
-                    </Button>
-                  )}
-                </Col>
-              </Row>
-            </Col>
-          </Row>
+            <Row align="bottom" style={{ height: '100%' }}>
+              <Col
+                span={24}
+                style={{
+                  opacity: 0.9,
+                  backdropFilter: 'blur(96px)',
+                  background: '#F4F4F5',
+                  padding: '12px 16px',
+                }}
+              >
+                <Row align="middle" gutter={[8, 8]}>
+                  <Col>
+                    <AppIcon size={40} appId={appId} name={false} />
+                  </Col>
+                  <Col flex="auto">
+                    <Typography.Title level={5}>
+                      {appData.name}
+                    </Typography.Title>
+                    <Typography.Text>{appData.author.name}</Typography.Text>
+                  </Col>
+                  <Col>
+                    {appIds.includes(appId) ? (
+                      <Button>Open</Button>
+                    ) : (
+                      <Button type="primary" onClick={onInstall}>
+                        Install
+                      </Button>
+                    )}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Card>
         )}
       />
     </Suspense>

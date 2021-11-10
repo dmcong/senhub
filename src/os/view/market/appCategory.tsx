@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { RootState } from 'os/store'
 
-import { Button, Col, Row, Space, Typography } from 'antd'
+import { Button, Col, Row, Skeleton, Space, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import AppCard from './appCard'
 import { useMemo } from 'react'
@@ -39,36 +39,40 @@ const AppCategory = (props: Props) => {
         return elmSlice.scrollBy({ behavior: 'smooth', left: width })
     }
   }
+
+  if (!appFilter.length) return <Skeleton active />
   return (
-    <Row gutter={[12, 12]} align="bottom">
+    <Row gutter={[20, 20]} align="bottom">
       <Col flex="auto">
-        <Space align="end">
-          {/* title */}
-          <Typography.Text type="secondary">{subTitle}</Typography.Text>
-          <Typography.Title level={4}>{title}</Typography.Title>
-          {/* see all button*/}
-          <Space align="end" size={2}>
-            <Button
-              style={{ padding: 0, height: 'auto' }}
-              type="text"
-              onClick={() => onSeeAll(appFilter, title)}
-            >
-              See all
-            </Button>
-            <IonIcon name="caret-forward-outline" />
+        <Row align="bottom">
+          <Space align="end">
+            {/* title */}
+            <Typography.Text type="secondary">{subTitle}</Typography.Text>
+            <Typography.Title level={4}>{title}</Typography.Title>
+            {/* see all button*/}
+            <Space align="end" size={2}>
+              <Button
+                style={{ padding: 0, height: 'auto' }}
+                type="text"
+                onClick={() => onSeeAll(appFilter, title)}
+              >
+                See all
+              </Button>
+              <IonIcon name="caret-forward-outline" />
+            </Space>
           </Space>
-        </Space>
+        </Row>
       </Col>
       {/* left and right button */}
       <Col>
         <Space>
           <Button
-            type="primary"
+            type="ghost"
             icon={<IonIcon name="chevron-back-outline" />}
             onClick={() => onScroll('left')}
           ></Button>
           <Button
-            type="primary"
+            type="ghost"
             icon={<IonIcon name="chevron-forward-outline" />}
             onClick={() => onScroll('right')}
           ></Button>
@@ -77,20 +81,13 @@ const AppCategory = (props: Props) => {
       {/* list app category */}
       <Col span={24}>
         <Row
-          gutter={[16, 16]}
+          gutter={[24, 24]}
           style={{ overflowX: 'auto', scrollSnapType: 'x mandatory' }}
           wrap={false}
           id={sliceId}
         >
           {appFilter.map((appId) => (
-            <Col
-              lg={6}
-              md={8}
-              sm={12}
-              xs={24}
-              style={{ scrollSnapAlign: 'start' }}
-              key={appId}
-            >
+            <Col key={appId} style={{ scrollSnapAlign: 'start' }}>
               <AppCard key={appId} appId={appId} />
             </Col>
           ))}
