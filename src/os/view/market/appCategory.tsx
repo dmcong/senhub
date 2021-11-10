@@ -16,14 +16,14 @@ type Props = {
 const AppCategory = (props: Props) => {
   const { title, subTitle, category, onSeeAll } = props
   const { register } = useSelector((state: RootState) => state.page)
-  const sliceId = Math.random()+""
+  const sliceId = Math.random() + ''
 
   //Filter app with category
   const appFilter = useMemo(() => {
     //TODO filter here:
     let appIds: AppIds = []
     console.log('category', category)
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 20; i++) {
       appIds = appIds.concat(Object.keys(register))
     }
     return appIds
@@ -47,7 +47,7 @@ const AppCategory = (props: Props) => {
           {/* title */}
           <Typography.Text type="secondary">{subTitle}</Typography.Text>
           <Typography.Title level={4}>{title}</Typography.Title>
-          {/* button see all */}
+          {/* see all button*/}
           <Space align="end" size={2}>
             <Button
               style={{ padding: 0, height: 'auto' }}
@@ -60,7 +60,7 @@ const AppCategory = (props: Props) => {
           </Space>
         </Space>
       </Col>
-      {/* button left and right */}
+      {/* left and right button */}
       <Col>
         <Space>
           <Button

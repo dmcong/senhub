@@ -1,5 +1,5 @@
-import { Card, Carousel, Row, Typography, Col } from 'antd'
-import React, { CSSProperties } from 'react'
+import { Card, Carousel } from 'antd'
+import { CSSProperties } from 'react'
 
 const contentStyle: CSSProperties = {
   height: '400px',

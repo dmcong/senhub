@@ -1,4 +1,4 @@
-import { Button, Col, Row, Skeleton, Spin, Typography } from 'antd'
+import { Button, Col, Row, Skeleton, Typography } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import { RemoteStatic } from 'os/components/appLoader'
 import { RootState } from 'os/store'
@@ -49,6 +49,7 @@ export default function AppCard(props: { appId: string }) {
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               borderRadius: 8,
+              cursor: 'pointer',
             }}
             key={appId}
             onClick={() => to(appId)}

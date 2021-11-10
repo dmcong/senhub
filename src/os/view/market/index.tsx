@@ -1,6 +1,6 @@
 import { Row, Col } from 'antd'
 import BannerStore from './bannerStore'
-import AppSuggest from './appCategory'
+import AppCategory from './appCategory'
 import { useState } from 'react'
 import AllApp from './allApp'
 
@@ -31,7 +31,7 @@ const Market = () => {
         <BannerStore />
       </Col>
       <Col span={24}>
-        <AppSuggest
+        <AppCategory
           onSeeAll={onGotoViewAll}
           title="Suggested for you"
           subTitle="Ads"
@@ -39,14 +39,14 @@ const Market = () => {
         />
       </Col>
       <Col span={24}>
-        <AppSuggest
+        <AppCategory
           onSeeAll={onGotoViewAll}
           title="Top dapps"
           category="top-dapps"
         />
       </Col>
       <Col span={24}>
-        <AppSuggest onSeeAll={onGotoViewAll} title="Other" category="other" />
+        <AppCategory onSeeAll={onGotoViewAll} title="Other" category="other" />
       </Col>
     </Row>
   )

@@ -10,6 +10,7 @@ import HeroPanel from './heroPanel'
 
 import { RootDispatch, RootState } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
+import AppCategory from '../appCategory'
 
 const AppViewer = () => {
   const history = useHistory()
@@ -68,6 +69,13 @@ const AppViewer = () => {
           </Col>
         </Row>
       </Col>
+      <Col span={24}>
+      <AppCategory
+          onSeeAll={()=>{}}
+          title="Top dapps"
+          category="top-dapps"
+        />
+        </Col>
     </Row>
   )
 }
