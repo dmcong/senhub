@@ -16,15 +16,14 @@ type Props = {
 const AppCategory = (props: Props) => {
   const { title, subTitle, category, onSeeAll } = props
   const { register } = useSelector((state: RootState) => state.page)
-  const sliceId = Math.random() + ''
+  const sliceId = `app-category-${category}-slice`
 
   //Filter app with category
   const appFilter = useMemo(() => {
     //TODO filter here:
     let appIds: AppIds = []
-    console.log('category', category)
     for (let i = 0; i < 20; i++) {
-      appIds = appIds.concat(Object.keys(register))
+      if (category) appIds = appIds.concat(Object.keys(register))
     }
     return appIds
   }, [category, register])
