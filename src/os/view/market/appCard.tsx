@@ -7,7 +7,6 @@ import { Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-
 export default function AppCard(props: { appId: string }) {
   const history = useHistory()
   const { appId } = props
@@ -45,6 +44,8 @@ export default function AppCard(props: { appId: string }) {
               backgroundImage: `url(${src})`,
               width: 334,
               height: 252,
+              maxWidth: '72vw',
+              maxHeight: '54vw',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
