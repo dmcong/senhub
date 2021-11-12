@@ -88,7 +88,16 @@ const AppCategory = (props: Props) => {
         >
           {appFilter.map((appId) => (
             <Col key={appId} style={{ scrollSnapAlign: 'start' }}>
-              <AppCard key={appId} appId={appId} />
+              <AppCard
+                key={appId}
+                appId={appId}
+                style={{
+                  width: 334,
+                  height: 252,
+                  maxWidth: '72vw',
+                  maxHeight: '54vw',
+                }}
+              />
             </Col>
           ))}
         </Row>

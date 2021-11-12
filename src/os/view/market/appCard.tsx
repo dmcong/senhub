@@ -3,13 +3,13 @@ import AppIcon from 'os/components/appIcon'
 import { RemoteStatic } from 'os/components/appLoader'
 import { RootState } from 'os/store'
 import { installApp } from 'os/store/page.reducer'
-import { Suspense } from 'react'
+import { CSSProperties, Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-export default function AppCard(props: { appId: string }) {
+export default function AppCard(props: { appId: string , style?:CSSProperties}) {
   const history = useHistory()
-  const { appId } = props
+  const { appId,style } = props
   const { register, appIds } = useSelector((state: RootState) => state.page)
   const dispatch = useDispatch()
   const appData = register[appId]
@@ -41,11 +41,8 @@ export default function AppCard(props: { appId: string }) {
         render={(src) => (
           <Card
             style={{
+              ...style,
               backgroundImage: `url(${src})`,
-              width: 334,
-              height: 252,
-              maxWidth: '72vw',
-              maxHeight: '54vw',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',

@@ -28,7 +28,13 @@ export default function AllApp({
 
       {appIds.map((appId) => (
         <Col lg={6} md={8} sm={12} xs={24}>
-          <AppCard key={appId} appId={appId} />
+          <AppCard
+            key={appId}
+            appId={appId}
+            style={{
+              height: 252,
+            }}
+          />
         </Col>
       ))}
     </Row>
