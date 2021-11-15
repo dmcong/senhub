@@ -4,6 +4,8 @@ import { SortableContext } from '@dnd-kit/sortable'
 
 import { Row, Col } from 'antd'
 
+import './index.os.less'
+
 /**
  * DroppablePage render as a Row
  */
@@ -26,9 +28,11 @@ const DroppablePage = ({
 
   return (
     <SortableContext items={items}>
-      <Row id={`droppable-${index}`} gutter={[16, 16]} ref={setNodeRef}>
+      <Row id={`droppable-${index}`} gutter={[24, 24]} ref={setNodeRef}>
         <Col span={24}>
-          <Row gutter={[16, 16]}>{children}</Row>
+          <div className={`droppable-page ${disabled ? 'passive' : 'active'}`}>
+            <Row gutter={[16, 16]}>{children}</Row>
+          </div>
         </Col>
       </Row>
     </SortableContext>
