@@ -74,13 +74,26 @@ export default function AppCard(props: {
                     <Typography.Title level={5}>
                       {appData.name}
                     </Typography.Title>
-                    <Typography.Text>{appData.author.name}</Typography.Text>
+                    <Typography.Text type="secondary">
+                      {appData.author.name}
+                    </Typography.Text>
                   </Col>
                   <Col>
                     {appIds.includes(appId) ? (
-                      <Button size="small">Open</Button>
+                      <Button
+                        type="ghost"
+                        size="small"
+                        style={{ padding: '1px 8px' }}
+                      >
+                        Open
+                      </Button>
                     ) : (
-                      <Button type="primary" onClick={onInstall} size="small">
+                      <Button
+                        type="primary"
+                        onClick={onInstall}
+                        size="small"
+                        style={{ padding: '1px 8px' }}
+                      >
                         Install
                       </Button>
                     )}

@@ -1,13 +1,15 @@
-import { Row, Col } from 'antd'
-import BannerStore from './bannerStore'
-import AppCategory from './appCategory'
 import { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { Row, Col } from 'antd'
+import AppCategory from './appCategory'
 import AllApp from './allApp'
 import SearchEngine from './searchEngine'
+import BannerTop from './bannerTop'
+import BannerBottom from './bannerBottom'
+
 import { setLoading } from 'os/store/search.reducer'
-import { useDispatch, useSelector } from 'react-redux'
 import { RootDispatch, RootState } from 'os/store'
-import BannerFooter from './bannerFooter'
 
 let searching: NodeJS.Timeout
 
@@ -16,7 +18,7 @@ const Market = () => {
   const { value } = useSelector((state: RootState) => state.search)
   const { register } = useSelector((state: RootState) => state.page)
 
-  const [infoViewAll, setInfoViewAll] = useState<{
+  const [viewInfo, setViewInfo] = useState<{
     isOpen: boolean
     appIds: AppIds
     title: string
@@ -34,7 +36,7 @@ const Market = () => {
 
     searching = setTimeout(async () => {
       const appIds = engine.search(value)
-      await setInfoViewAll({
+      await setViewInfo({
         isOpen: !!value,
         appIds: appIds,
         title: 'Search Results',
@@ -48,40 +50,35 @@ const Market = () => {
     onSearch()
   }, [onSearch])
 
-  const onGotoViewAll = (appIds: AppIds, title: string) => {
-    setInfoViewAll({ isOpen: true, appIds, title })
+  const onView = (appIds: AppIds, title: string) => {
+    return setViewInfo({ isOpen: true, appIds, title })
   }
-  const onBackViewAll = () => {
-    setInfoViewAll({ isOpen: false, appIds: [], title: '' })
+  const onBack = () => {
+    return setViewInfo({ isOpen: false, appIds: [], title: '' })
   }
 
-  if (infoViewAll.isOpen)
-    return <AllApp {...infoViewAll} onBack={onBackViewAll} />
+  if (viewInfo.isOpen) return <AllApp {...viewInfo} onBack={onBack} />
 
   return (
     <Row gutter={[16, 48]}>
       <Col span={24}>
-        <BannerStore />
+        <BannerTop />
       </Col>
       <Col span={24}>
         <AppCategory
-          onSeeAll={onGotoViewAll}
+          onSeeAll={onView}
           title="Suggested for you"
           category="suggest"
         />
       </Col>
       <Col span={24}>
-        <AppCategory
-          onSeeAll={onGotoViewAll}
-          title="Top dapps"
-          category="top-dapps"
-        />
+        <AppCategory onSeeAll={onView} title="Top dapps" category="top-dapps" />
       </Col>
       <Col span={24}>
-        <AppCategory onSeeAll={onGotoViewAll} title="Other" category="other" />
+        <AppCategory onSeeAll={onView} title="Other" category="other" />
       </Col>
-      <Col span ={24}>
-        <BannerFooter/>
+      <Col span={24}>
+        <BannerBottom />
       </Col>
     </Row>
   )
