@@ -5,7 +5,7 @@ const PriceInfo = () => {
   return (
     <Space size={4}>
       <Typography.Text>
-        <PriceIndicator ticket="solana" colorized />
+        <PriceIndicator className="indicator" ticket="solana" colorized />
       </Typography.Text>
       <Typography.Text>
         <Price ticket="solana" colorized />
