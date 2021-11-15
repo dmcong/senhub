@@ -38,6 +38,7 @@ const ActionCenter = () => {
                   onClick={() => dispatch(setActionCenterVisible(false))}
                 />
               }
+              defaultActiveKey="system-settings"
               destroyInactiveTabPane
             >
               <Tabs.TabPane

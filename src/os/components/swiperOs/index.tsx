@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Swiper } from 'swiper/react'
 import { Navigation, SwiperOptions } from 'swiper'
 import 'swiper/css/bundle'
-import './index.less'
+import './index.os.less'
 
 export const SwiperOs = ({
   children,
