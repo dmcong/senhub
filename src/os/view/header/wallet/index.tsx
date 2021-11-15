@@ -2,7 +2,7 @@ import { CSSProperties, Fragment, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { Button } from 'antd'
+import { Button, ButtonProps } from 'antd'
 import IonIcon from 'shared/ionicon'
 import Login from './login'
 
@@ -20,6 +20,27 @@ import {
   SolletWallet,
   SlopeWallet,
 } from './lib'
+
+export const DisconnectWallet = ({
+  title = 'Disconnect',
+  ...rest
+}: {
+  text?: string
+} & ButtonProps) => {
+  const dispatch = useDispatch<RootDispatch>()
+  const { address } = useSelector((state: RootState) => state.wallet)
+
+  if (!account.isAddress(address)) return null
+  return (
+    <Button
+      icon={<IonIcon name="power-outline" />}
+      onClick={() => dispatch(disconnectWallet())}
+      {...rest}
+    >
+      {title}
+    </Button>
+  )
+}
 
 const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
   const dispatch = useDispatch<RootDispatch>()
@@ -50,36 +71,19 @@ const Wallet = ({ style = {} }: { style?: CSSProperties }) => {
     }
   }, [dispatch])
 
-  if (!account.isAddress(address))
-    return (
-      <Fragment>
-        <Button
-          style={style}
-          type="primary"
-          icon={<IonIcon name="wallet-outline" />}
-          onClick={() => dispatch(openWallet())}
-        >
-          Connect Wallet
-        </Button>
-        <Login />
-      </Fragment>
-    )
-
+  if (account.isAddress(address)) return null
   return (
-    <Button
-      type="text"
-      icon={<IonIcon name="power-outline" />}
-      onClick={() => dispatch(disconnectWallet())}
-      style={{
-        color: '#E9E9EB',
-        padding: 0,
-        background: 'transparent',
-        height: 'auto',
-        ...style,
-      }}
-    >
-      Disconnect
-    </Button>
+    <Fragment>
+      <Button
+        style={style}
+        type="primary"
+        icon={<IonIcon name="wallet-outline" />}
+        onClick={() => dispatch(openWallet())}
+      >
+        Connect Wallet
+      </Button>
+      <Login />
+    </Fragment>
   )
 }
 

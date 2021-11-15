@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { utils } from '@senswap/sen-js'
 
 import { Row, Col, Tooltip, Space, Card, Typography } from 'antd'
-import Wallet from 'os/view/header/wallet'
+import { DisconnectWallet } from 'os/view/header/wallet'
 import IconButton from './iconButton'
 import PriceInfo from './priceInfo'
 import Address from './address'
@@ -68,7 +68,14 @@ const WalletIntro = () => {
               <PriceInfo />
             </Col>
             <Col span={12} style={{ textAlign: 'end' }}>
-              <Wallet />
+              <DisconnectWallet
+                type="text"
+                style={{
+                  color: '#E9E9EB',
+                  padding: 0,
+                  height: 'auto',
+                }}
+              />
             </Col>
           </Row>
         </Col>
