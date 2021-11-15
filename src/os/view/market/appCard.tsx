@@ -7,9 +7,12 @@ import { CSSProperties, Suspense } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router'
 
-export default function AppCard(props: { appId: string , style?:CSSProperties}) {
+export default function AppCard(props: {
+  appId: string
+  style?: CSSProperties
+}) {
   const history = useHistory()
-  const { appId,style } = props
+  const { appId, style } = props
   const { register, appIds } = useSelector((state: RootState) => state.page)
   const dispatch = useDispatch()
   const appData = register[appId]
@@ -58,15 +61,14 @@ export default function AppCard(props: { appId: string , style?:CSSProperties}) 
               <Col
                 span={24}
                 style={{
-                  opacity: 0.9,
-                  backdropFilter: 'blur(96px)',
-                  background: '#F4F4F5',
+                  backdropFilter: 'blur(4px)',
+                  background: '#F4F4F5b3',
                   padding: '12px 16px',
                 }}
               >
                 <Row align="middle" gutter={[8, 8]}>
                   <Col>
-                    <AppIcon size={40} appId={appId} name={false} />
+                    <AppIcon size={32} appId={appId} name={false} />
                   </Col>
                   <Col flex="auto">
                     <Typography.Title level={5}>
@@ -76,9 +78,9 @@ export default function AppCard(props: { appId: string , style?:CSSProperties}) 
                   </Col>
                   <Col>
                     {appIds.includes(appId) ? (
-                      <Button>Open</Button>
+                      <Button size="small">Open</Button>
                     ) : (
-                      <Button type="primary" onClick={onInstall}>
+                      <Button type="primary" onClick={onInstall} size="small">
                         Install
                       </Button>
                     )}
