@@ -6,6 +6,8 @@ import AppDetails from './appDetails'
 import ScreenShot from './screenshot'
 import IonIcon from 'shared/ionicon'
 
+import './index.os.less'
+
 const AppViewer = () => {
   const history = useHistory()
   const { appId } = useParams<{ appId: string }>()

@@ -1,19 +1,28 @@
-import { Col, Image, Row } from 'antd'
+import { Col, Image, Row, Grid } from 'antd'
+import { SwiperSlide } from 'swiper/react'
+
+import { SwiperOs } from 'os/components/swiperOs'
 
 const ScreenShot = ({ appId }: { appId: string }) => {
+  const { sm } = Grid.useBreakpoint()
+  const slidesPerView = !sm ? 1 : 2
+
   return (
-    <Row gutter={[24, 24]} justify="center">
+    <Row gutter={[24, 24]} justify="center" className="app-detail-carousel">
       <Col span={24}>
-        <Row gutter={[24, 24]}>
-          {[1, 2].map((e, idx) => (
-            <Col span={12} key={idx} className="screenshot">
+        <SwiperOs slidesPerView={slidesPerView} loop>
+          {[1, 2, 3, 4].map((e, idx) => (
+            <SwiperSlide>
               <Image
-                // preview={false}
-                src="https://source.unsplash.com/random/?liquid,abstract"
+                style={{
+                  maxHeight: 252,
+                  height: '57vw',
+                }}
+                src="https://source.unsplash.com/random"
               />
-            </Col>
+            </SwiperSlide>
           ))}
-        </Row>
+        </SwiperOs>
       </Col>
     </Row>
   )
