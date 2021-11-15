@@ -46,7 +46,7 @@ const AppDetails = ({ appId }: { appId: string }) => {
           <Col span={24}>
             <Row>
               {/* trick to float right element on desktop */}
-              <Col xxl={24} xl={24} lg={0} md={0} sm={0} xs={0} flex="auto" />
+              <Col xxl={24} xl={24} lg={0} md={24} sm={0} xs={0} flex="auto" />
               <Col>
                 <Space>
                   <AppShare appId={appId} />

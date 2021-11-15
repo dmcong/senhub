@@ -4,8 +4,7 @@ import IonIcon from 'shared/ionicon'
 
 import { Button, Space, Modal, Row, Col, Typography, Image, Input } from 'antd'
 import Telegram from 'os/static/images/telegram.png'
-import IconTele from 'os/static/images/icon-telegram.png'
-import IconTwitter from 'os/static/images/icon-twitter.png'
+import IconTele from 'os/static/images/icon-telegram.svg'
 
 const AppShare = ({ appId }: { appId: string }) => {
   const [visible, setVisible] = useState(false)
@@ -13,25 +12,21 @@ const AppShare = ({ appId }: { appId: string }) => {
 
   return (
     <Space>
-      {/* <IonIcon name="logo-twitter" onClick={() => {}} />
-      <IonIcon name="paper-plane" onClick={() => {}} /> */}
-      <Image
-        src={IconTwitter}
-        preview={false}
+      <IonIcon
+        name="logo-twitter"
+        style={{ fontSize: 24, cursor: 'pointer' }}
         onClick={() => {
           setVisible(!visible)
           setShareLogo(Telegram)
         }}
-        style={{ cursor: 'pointer' }}
       />
-      <Image
+      <IonIcon
         src={IconTele}
-        preview={false}
+        style={{ fontSize: 24, cursor: 'pointer' }}
         onClick={() => {
           setVisible(!visible)
           setShareLogo(Telegram)
         }}
-        style={{ cursor: 'pointer' }}
       />
       <Modal
         closable={false}
