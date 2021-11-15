@@ -1,4 +1,4 @@
-import { Card, Col, Row } from 'antd'
+import { Card, Carousel } from 'antd'
 import { CSSProperties } from 'react'
 
 const contentStyle: CSSProperties = {
@@ -15,23 +15,26 @@ const BANNER_LIST = [
   {
     url: 'https://source.unsplash.com/user/erondu/1600x900',
   },
+  {
+    url: 'https://source.unsplash.com/random/1600x900',
+  },
 ]
 //
-export default function BannerFooter() {
+export default function BannerTop() {
   return (
-    <Row gutter={[24, 16]}>
+    <Carousel autoplay>
       {BANNER_LIST.map((banner, index) => {
         return (
-          <Col xl={12} lg={12} md={12} sm={24} xs={24}>
+          <div>
             <Card
               key={index}
               className="shadowed"
               style={{ ...contentStyle, backgroundImage: `url(${banner.url})` }}
               bordered={false}
             ></Card>
-          </Col>
+          </div>
         )
       })}
-    </Row>
+    </Carousel>
   )
 }
