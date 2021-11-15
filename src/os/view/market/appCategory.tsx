@@ -1,10 +1,12 @@
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { RootState } from 'os/store'
 
+import { RootState } from 'os/store'
+import { SwiperSlide } from 'swiper/react'
 import { Button, Col, Row, Skeleton, Space, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import AppCard from './appCard'
-import { useMemo } from 'react'
+import { SwiperOs } from 'os/components/swiperOs'
 
 type Props = {
   subTitle?: string
@@ -16,7 +18,6 @@ type Props = {
 const AppCategory = (props: Props) => {
   const { title, subTitle, category, onSeeAll } = props
   const { register } = useSelector((state: RootState) => state.page)
-  const sliceId = `app-category-${category}-slice`
 
   //Filter app with category
   const appFilter = useMemo(() => {
@@ -28,18 +29,6 @@ const AppCategory = (props: Props) => {
     return appIds
   }, [category, register])
 
-  const onScroll = (type: 'left' | 'right') => {
-    const elmSlice = document.getElementById(sliceId)
-    if (!elmSlice) return
-    const width = window.innerWidth
-    switch (type) {
-      case 'left':
-        return elmSlice.scrollBy({ behavior: 'smooth', left: -width })
-      case 'right':
-        return elmSlice.scrollBy({ behavior: 'smooth', left: width })
-    }
-  }
-
   if (!appFilter.length) return <Skeleton active />
   return (
     <Row gutter={[20, 20]} align="bottom">
@@ -50,57 +39,40 @@ const AppCategory = (props: Props) => {
             <Typography.Text type="secondary">{subTitle}</Typography.Text>
             <Typography.Title level={4}>{title}</Typography.Title>
             {/* see all button*/}
-            <Space align="end" size={2}>
-              <Button
-                style={{ padding: 0, height: 'auto' }}
-                type="text"
-                onClick={() => onSeeAll(appFilter, title)}
-              >
-                See all
-              </Button>
-              <IonIcon name="caret-forward-outline" />
-            </Space>
           </Space>
         </Row>
       </Col>
-      {/* left and right button */}
       <Col>
-        <Space>
-          <Button
-            type="ghost"
-            icon={<IonIcon name="chevron-back-outline" />}
-            onClick={() => onScroll('left')}
-          ></Button>
-          <Button
-            type="ghost"
-            icon={<IonIcon name="chevron-forward-outline" />}
-            onClick={() => onScroll('right')}
-          ></Button>
-        </Space>
+        <Typography.Text type="danger">
+          <Space align="end" size={2}>
+            <Button
+              danger
+              style={{ padding: 0, height: 'auto', fontWeight: 300 }}
+              type="text"
+              onClick={() => onSeeAll(appFilter, title)}
+            >
+              See all
+            </Button>
+            <IonIcon name="chevron-forward-outline" />
+          </Space>
+        </Typography.Text>
       </Col>
       {/* list app category */}
       <Col span={24}>
-        <Row
-          gutter={[24, 24]}
-          style={{ overflowX: 'auto', scrollSnapType: 'x mandatory' }}
-          wrap={false}
-          id={sliceId}
-        >
+        <SwiperOs>
           {appFilter.map((appId) => (
-            <Col key={appId} style={{ scrollSnapAlign: 'start' }}>
+            <SwiperSlide style={{ maxWidth: 334, width: '75vw' }}>
               <AppCard
                 key={appId}
                 appId={appId}
                 style={{
-                  width: 334,
-                  height: 252,
-                  maxWidth: '72vw',
-                  maxHeight: '54vw',
+                  maxHeight: 252,
+                  height: '57vw',
                 }}
               />
-            </Col>
+            </SwiperSlide>
           ))}
-        </Row>
+        </SwiperOs>
       </Col>
     </Row>
   )
