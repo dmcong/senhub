@@ -34,7 +34,6 @@ const AppCategory = ({
     fetchApps()
   }, [fetchApps])
 
-  if (!appIds.length) return <Skeleton active />
   return (
     <Row gutter={[20, 20]} align="bottom">
       {/* title */}
