@@ -1,9 +1,8 @@
 import { Button, Col, Row, Typography } from 'antd'
-import React from 'react'
 import IonIcon from 'shared/ionicon'
 import AppCard from './appCard'
 
-export default function AllApp({
+const SeeAll = ({
   title,
   appIds,
   onBack,
@@ -11,7 +10,7 @@ export default function AllApp({
   title: string
   appIds: AppIds
   onBack: () => void
-}) {
+}) => {
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
@@ -40,3 +39,5 @@ export default function AllApp({
     </Row>
   )
 }
+
+export default SeeAll

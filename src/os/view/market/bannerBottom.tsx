@@ -1,32 +1,37 @@
+import { useState, useEffect } from 'react'
+
 import { Card, Col, Row } from 'antd'
-import { CSSProperties } from 'react'
 
-const contentStyle: CSSProperties = {
-  height: '33vw',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-}
+const BannerBottom = () => {
+  const [listBanner, setListBanner] = useState<string[]>([])
 
-const BANNER_LIST = [
-  {
-    url: 'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
-  },
-  {
-    url: 'https://source.unsplash.com/1600x902/?crypto',
-  },
-]
-//
-export default function BannerBottom() {
+  const fetchListBanner = async () => {
+    //TODO fetch:
+    setListBanner([
+      'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
+      'https://source.unsplash.com/1600x902/?crypto',
+    ])
+  }
+
+  useEffect(() => {
+    fetchListBanner()
+  }, [])
+
   return (
     <Row gutter={[24, 16]}>
-      {BANNER_LIST.map((banner, index) => {
+      {listBanner.map((banner, index) => {
         return (
           <Col xl={12} lg={12} md={12} sm={24} xs={24}>
             <Card
               key={index}
               className="shadowed"
-              style={{ ...contentStyle, backgroundImage: `url(${banner.url})` }}
+              style={{
+                height: '33vw',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundImage: `url(${banner})`,
+              }}
               bordered={false}
             ></Card>
           </Col>
@@ -35,3 +40,5 @@ export default function BannerBottom() {
     </Row>
   )
 }
+
+export default BannerBottom

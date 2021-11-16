@@ -1,35 +1,38 @@
+import { useEffect, useState } from 'react'
+
 import { Card, Carousel } from 'antd'
-import { CSSProperties } from 'react'
 
-const contentStyle: CSSProperties = {
-  height: '33vw',
-  backgroundPosition: 'center',
-  backgroundRepeat: 'no-repeat',
-  backgroundSize: 'cover',
-}
+const BannerTop = () => {
+  const [listBanner, setListBanner] = useState<string[]>([])
 
-const BANNER_LIST = [
-  {
-    url: 'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
-  },
-  {
-    url: 'https://source.unsplash.com/1600x900/?crypto',
-  },
-  {
-    url: 'https://source.unsplash.com/1600x901/?crypto',
-  },
-]
-//
-export default function BannerTop() {
+  const fetchListBanner = async () => {
+    //TODO fetch:
+    setListBanner([
+      'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
+      'https://source.unsplash.com/1600x902/?crypto',
+      'https://source.unsplash.com/1600x901/?crypto',
+    ])
+  }
+
+  useEffect(() => {
+    fetchListBanner()
+  }, [])
+
   return (
     <Carousel autoplay>
-      {BANNER_LIST.map((banner, index) => {
+      {listBanner.map((banner, index) => {
         return (
           <div>
             <Card
               key={index}
               className="shadowed"
-              style={{ ...contentStyle, backgroundImage: `url(${banner.url})` }}
+              style={{
+                height: '33vw',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover',
+                backgroundImage: `url(${banner})`,
+              }}
               bordered={false}
             ></Card>
           </div>
@@ -38,3 +41,5 @@ export default function BannerTop() {
     </Carousel>
   )
 }
+
+export default BannerTop
