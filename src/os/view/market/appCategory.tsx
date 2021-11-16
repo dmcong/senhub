@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { SwiperSlide } from 'swiper/react'
-import { Button, Col, Row, Skeleton, Space, Typography } from 'antd'
+import { Button, Col, Row, Space, Typography } from 'antd'
 import IonIcon from 'shared/ionicon'
 import { SwiperOs } from 'os/components/swiperOs'
 import AppCard from './appCard'
