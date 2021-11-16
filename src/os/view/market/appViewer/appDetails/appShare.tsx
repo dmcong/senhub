@@ -31,6 +31,7 @@ const AppShare = ({ appId }: { appId: string }) => {
   const onClick = (type?: string) => {
     let telegramURL = 'https://telegram.me/share/url?'
     let twitterURL = 'http://twitter.com/intent/tweet?'
+    setVisible(false)
     if (type === 'twitter') return onShare(twitterURL)
     return onShare(telegramURL)
   }
