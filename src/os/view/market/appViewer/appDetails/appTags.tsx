@@ -1,15 +1,21 @@
 import { Space, Tag } from 'antd'
 
+const TAG_COLOR: Record<string, string> = {
+  'liquidity pool': '#D72311',
+  blockchian: '#16FB48',
+  trending: '#FFC580',
+}
+
 const AppTags = () => {
   return (
     <Space size={8} wrap>
-      {['Liquidity Pool', 'blockchian', 'trending'].map((e, index) => (
+      {['liquidity pool', 'blockchian', 'trending'].map((tag, index) => (
         <Tag
           style={{ margin: 0, borderRadius: 4 }}
-          color={`#${Math.floor(Math.random() * 16777215).toString(16)}`}
+          color={TAG_COLOR[tag]}
           key={index}
         >
-          {e}
+          {tag}
         </Tag>
       ))}
     </Space>
