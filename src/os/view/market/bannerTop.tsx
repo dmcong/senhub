@@ -13,10 +13,10 @@ const BANNER_LIST = [
     url: 'https://coin68.com/wp-content/uploads/2021/10/Sentre-Liquidity-Flow.jpg',
   },
   {
-    url: 'https://source.unsplash.com/user/erondu/1600x900',
+    url: 'https://source.unsplash.com/1600x900/?crypto',
   },
   {
-    url: 'https://source.unsplash.com/random/1600x900',
+    url: 'https://source.unsplash.com/1600x901/?crypto',
   },
 ]
 //

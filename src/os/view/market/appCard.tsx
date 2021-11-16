@@ -16,7 +16,9 @@ export default function AppCard(props: {
   const { register, appIds } = useSelector((state: RootState) => state.page)
   const dispatch = useDispatch()
   const appData = register[appId]
-  const to = (appId: string) => history.push(`/store/${appId}`)
+
+  const toDetail = (appId: string) => history.push(`/store/${appId}`)
+
   const manifest = { url: appData?.url || '', scope: appId, module: './static' }
 
   if (!appData) return null
@@ -24,6 +26,10 @@ export default function AppCard(props: {
   const onInstall = (e: any) => {
     e.stopPropagation()
     dispatch(installApp(appId))
+  }
+  const toApp = (e: any, appId: string) => {
+    e.stopPropagation()
+    history.push(`/app/${appId}`)
   }
 
   return (
@@ -55,7 +61,7 @@ export default function AppCard(props: {
             }}
             bodyStyle={{ padding: 0, height: '100%' }}
             key={appId}
-            onClick={() => to(appId)}
+            onClick={() => toDetail(appId)}
           >
             <Row align="bottom" style={{ height: '100%' }}>
               <Col
@@ -84,6 +90,7 @@ export default function AppCard(props: {
                         type="ghost"
                         size="small"
                         style={{ padding: '1px 8px' }}
+                        onClick={(e) => toApp(e, appId)}
                       >
                         Open
                       </Button>
