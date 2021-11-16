@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { Row, Col } from 'antd'
 import AppCategory from './appCategory'
-import AllApp from './allApp'
+import SeeAll from './seeAll'
 import SearchEngine from './searchEngine'
 import BannerTop from './bannerTop'
 import BannerBottom from './bannerBottom'
@@ -17,8 +17,7 @@ const Market = () => {
   const dispatch = useDispatch<RootDispatch>()
   const { value } = useSelector((state: RootState) => state.search)
   const { register } = useSelector((state: RootState) => state.page)
-
-  const [viewInfo, setViewInfo] = useState<{
+  const [seeAll, setSeeAll] = useState<{
     isOpen: boolean
     appIds: AppIds
     title: string
@@ -36,7 +35,7 @@ const Market = () => {
 
     searching = setTimeout(async () => {
       const appIds = engine.search(value)
-      await setViewInfo({
+      await setSeeAll({
         isOpen: !!value,
         appIds: appIds,
         title: 'Search Results',
@@ -50,15 +49,12 @@ const Market = () => {
     onSearch()
   }, [onSearch])
 
-  const onView = (appIds: AppIds, title: string) => {
-    return setViewInfo({ isOpen: true, appIds, title })
-  }
-  const onBack = () => {
-    return setViewInfo({ isOpen: false, appIds: [], title: '' })
-  }
+  const onSeeAll = (appIds: AppIds, title: string) =>
+    setSeeAll({ isOpen: true, appIds, title })
 
-  if (viewInfo.isOpen) return <AllApp {...viewInfo} onBack={onBack} />
+  const onBack = () => setSeeAll({ isOpen: false, appIds: [], title: '' })
 
+  if (seeAll.isOpen) return <SeeAll {...seeAll} onBack={onBack} />
   return (
     <Row gutter={[16, 48]}>
       <Col span={24}>
@@ -66,16 +62,20 @@ const Market = () => {
       </Col>
       <Col span={24}>
         <AppCategory
-          onSeeAll={onView}
+          onSeeAll={onSeeAll}
           title="Suggested for you"
           category="suggest"
         />
       </Col>
       <Col span={24}>
-        <AppCategory onSeeAll={onView} title="Top dapps" category="top-dapps" />
+        <AppCategory
+          onSeeAll={onSeeAll}
+          title="Top dapps"
+          category="top-dapps"
+        />
       </Col>
       <Col span={24}>
-        <AppCategory onSeeAll={onView} title="Other" category="other" />
+        <AppCategory onSeeAll={onSeeAll} title="Other" category="other" />
       </Col>
       <Col span={24}>
         <BannerBottom />

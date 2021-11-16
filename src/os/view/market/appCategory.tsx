@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import { SwiperSlide } from 'swiper/react'
@@ -9,48 +9,47 @@ import AppCard from './appCard'
 
 import { RootState } from 'os/store'
 
-type Props = {
-  subTitle?: string
+const AppCategory = ({
+  title,
+  category,
+  onSeeAll,
+}: {
   title: string
   category: string
   onSeeAll: (appIds: AppIds, title: string) => void
-}
-
-const AppCategory = (props: Props) => {
-  const { title, subTitle, category, onSeeAll } = props
+}) => {
   const { register } = useSelector((state: RootState) => state.page)
+  const [appIds, setAppIds] = useState<AppIds>([])
 
-  //Filter app with category
-  const appFilter = useMemo(() => {
-    //TODO filter here:
+  const fetchApps = useCallback(async () => {
+    //TODO
     let appIds: AppIds = []
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 3; i++) {
       if (category) appIds = appIds.concat(Object.keys(register))
     }
-    return appIds
+    return setAppIds(appIds)
   }, [category, register])
 
-  if (!appFilter.length) return <Skeleton active />
+  useEffect(() => {
+    fetchApps()
+  }, [fetchApps])
+
+  if (!appIds.length) return <Skeleton active />
   return (
     <Row gutter={[20, 20]} align="bottom">
+      {/* title */}
       <Col flex="auto">
-        <Row align="bottom">
-          <Space align="end">
-            {/* title */}
-            <Typography.Text type="secondary">{subTitle}</Typography.Text>
-            <Typography.Title level={4}>{title}</Typography.Title>
-            {/* see all button*/}
-          </Space>
-        </Row>
+        <Typography.Title level={4}>{title}</Typography.Title>
       </Col>
+      {/* see all button*/}
       <Col>
         <Typography.Text type="danger">
-          <Space align="end" size={2}>
+          <Space size={2}>
             <Button
               danger
               style={{ padding: 0, height: 'auto', fontWeight: 300 }}
               type="text"
-              onClick={() => onSeeAll(appFilter, title)}
+              onClick={() => onSeeAll(appIds, title)}
             >
               See all
             </Button>
@@ -61,16 +60,16 @@ const AppCategory = (props: Props) => {
       {/* list app category */}
       <Col span={24}>
         <SwiperOs>
-          {appFilter.map((appId) => (
-            <SwiperSlide style={{ maxWidth: 334, width: '75vw' }}>
-              <AppCard
-                key={appId}
-                appId={appId}
-                style={{
-                  maxHeight: 252,
-                  height: '57vw',
-                }}
-              />
+          {appIds.map((appId) => (
+            <SwiperSlide
+              style={{
+                maxWidth: 334,
+                width: '75vw',
+                maxHeight: 251,
+                height: 'calc(75vw * 0.75)',
+              }}
+            >
+              <AppCard key={appId} appId={appId} />
             </SwiperSlide>
           ))}
         </SwiperOs>

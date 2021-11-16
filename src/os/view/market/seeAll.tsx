@@ -1,9 +1,10 @@
+import { useEffect, useRef, useState } from 'react'
+
 import { Button, Col, Row, Typography } from 'antd'
-import React from 'react'
 import IonIcon from 'shared/ionicon'
 import AppCard from './appCard'
 
-export default function AllApp({
+const SeeAll = ({
   title,
   appIds,
   onBack,
@@ -11,7 +12,14 @@ export default function AllApp({
   title: string
   appIds: AppIds
   onBack: () => void
-}) {
+}) => {
+  const ref = useRef(null)
+  const [cardHeight, setCardHeight] = useState(0)
+
+  useEffect(() => {
+    setCardHeight(((ref?.current as any)?.offsetWidth - 24) * 0.75)
+  }, [ref])
+
   return (
     <Row gutter={[24, 24]}>
       <Col span={24}>
@@ -27,12 +35,11 @@ export default function AllApp({
       </Col>
 
       {appIds.map((appId) => (
-        <Col lg={6} md={8} sm={12} xs={24}>
+        <Col lg={6} md={8} sm={12} xs={24} ref={ref} key={appId}>
           <AppCard
-            key={appId}
             appId={appId}
             style={{
-              height: 252,
+              height: cardHeight,
             }}
           />
         </Col>
@@ -40,3 +47,5 @@ export default function AllApp({
     </Row>
   )
 }
+
+export default SeeAll
