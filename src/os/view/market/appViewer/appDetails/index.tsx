@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { account } from '@senswap/sen-js'
 
-import { Row, Col, Typography, Space } from 'antd'
+import { Row, Col, Typography, Space, Grid } from 'antd'
 import AppIcon from 'os/components/appIcon'
 import AppInstall from './appInstall'
 import AppTags from './appTags'
@@ -18,6 +18,12 @@ const AppDetails = ({ appId }: { appId: string }) => {
   const { address } = useSelector((state: RootState) => state.wallet)
   const { appIds } = useSelector((state: RootState) => state.page)
   const { description, author, name } = register[appId] || {}
+  const { xl, lg, md } = Grid.useBreakpoint()
+
+  const floatSocialButton = () => {
+    if (xl || (!lg && md)) return 'end'
+    return 'start'
+  }
 
   const installed = useMemo(() => {
     return account.isAddress(address) && appIds.includes(appId)
@@ -25,28 +31,26 @@ const AppDetails = ({ appId }: { appId: string }) => {
 
   return (
     <Row gutter={[16, 16]}>
-      <Col flex="auto">
-        <Row gutter={[32, 24]} wrap={false}>
-          <Col>
-            <AppIcon appId={appId} size={96} name={false} />
+      <Col span={24}>
+        <Row gutter={[16, 16]} wrap={!xl}>
+          <Col flex="auto">
+            <Row gutter={[32, 24]} wrap={false}>
+              <Col>
+                <AppIcon appId={appId} size={96} name={false} />
+              </Col>
+              <Col flex="auto">
+                <Space direction="vertical" size={16}>
+                  <Typography.Title level={2}>{name}</Typography.Title>
+                  <AppTags />
+                </Space>
+              </Col>
+            </Row>
           </Col>
           <Col flex="auto">
-            <Space direction="vertical" size={16}>
-              <Typography.Title level={2}>{name}</Typography.Title>
-              <AppTags />
-            </Space>
-          </Col>
-        </Row>
-      </Col>
-      <Col span={24} flex="auto">
-        <Row gutter={[16, 16]} justify="end">
-          <Col span={24}>
-            <AppInstall appId={appId} installed={installed} />
-          </Col>
-          <Col span={24}>
-            <Row>
-              {/* trick to float right element on desktop */}
-              <Col xxl={24} xl={24} lg={0} md={24} sm={0} xs={0} flex="auto" />
+            <Row gutter={[16, 16]} justify={floatSocialButton()}>
+              <Col span={24}>
+                <AppInstall appId={appId} installed={installed} />
+              </Col>
               <Col>
                 <Space>
                   <AppShare appId={appId} />

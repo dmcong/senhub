@@ -1,6 +1,12 @@
 import { Space, Typography } from 'antd'
 
-const SubText = ({ label, title }: { label: string; title?: string }) => {
+const ExtraTypography = ({
+  label,
+  title,
+}: {
+  label: string
+  title?: string
+}) => {
   return (
     <Space>
       <Typography.Text type="secondary">{label}:</Typography.Text>
@@ -18,9 +24,9 @@ const AppAuth = ({
 
   return (
     <Space direction="vertical" size={4}>
-      <SubText label="Version" title="1.0.0" />
-      <SubText label="Author" title={name} />
-      <SubText label="Support" title={email} />
+      <ExtraTypography label="Version" title="1.0.0" />
+      <ExtraTypography label="Author" title={name} />
+      <ExtraTypography label="Support" title={email} />
     </Space>
   )
 }

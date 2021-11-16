@@ -6,6 +6,7 @@ import { Button, Col, Row } from 'antd'
 import { RootDispatch } from 'os/store'
 import { installApp, uninstallApp } from 'os/store/page.reducer'
 import IonIcon from 'shared/ionicon'
+import { Fragment } from 'react'
 
 const AppInstall = ({
   installed,
@@ -21,8 +22,31 @@ const AppInstall = ({
 
   return (
     <Row gutter={[12, 12]} justify="end">
-      {!installed ? (
-        <Col xxl={12} xl={12} lg={24} md={24} sm={24} xs={24} flex="auto">
+      {installed ? (
+        <Fragment>
+          <Col span={12}>
+            <Button
+              icon={<IonIcon name="trash-outline" />}
+              onClick={() => dispatch(uninstallApp(appId))}
+              block
+            >
+              Uninstall
+            </Button>
+          </Col>
+
+          <Col span={12}>
+            <Button
+              type="primary"
+              icon={<IonIcon name="open-outline" />}
+              onClick={to}
+              block
+            >
+              Open
+            </Button>
+          </Col>
+        </Fragment>
+      ) : (
+        <Col flex="auto">
           <Button
             type="primary"
             icon={<IonIcon name="cloud-download-outline" />}
@@ -30,28 +54,6 @@ const AppInstall = ({
             block
           >
             Install
-          </Button>
-        </Col>
-      ) : (
-        <Col span={12}>
-          <Button
-            icon={<IonIcon name="trash-outline" />}
-            onClick={() => dispatch(uninstallApp(appId))}
-            block
-          >
-            Uninstall
-          </Button>
-        </Col>
-      )}
-      {installed && (
-        <Col span={12}>
-          <Button
-            type="primary"
-            icon={<IonIcon name="open-outline" />}
-            onClick={to}
-            block
-          >
-            Open
           </Button>
         </Col>
       )}

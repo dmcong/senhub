@@ -1,18 +1,18 @@
 import { useState } from 'react'
 
-import IonIcon from 'shared/ionicon'
+import { Space, Modal, Button } from 'antd'
 
-import { Space, Modal } from 'antd'
+import IonIcon from 'shared/ionicon'
 
 const ReadMe = ({ appId }: { appId: string }) => {
   const [visible, setVisible] = useState(false)
 
   return (
     <Space>
-      <IonIcon
-        style={{ fontSize: 24 }}
-        name="reader-outline"
-        onClick={() => setVisible(true)}
+      <Button
+        type="text"
+        className="btn-icon"
+        icon={<IonIcon name="reader" onClick={() => setVisible(true)} />}
       />
       <Modal
         visible={visible}

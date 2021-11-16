@@ -24,10 +24,10 @@ const AppViewer = () => {
       <Col span={24}>
         <Card>
           <Row gutter={[24, 24]}>
-            <Col xxl={12} xl={15} lg={12} md={24} sm={24} xs={24}>
+            <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
               <AppDetails appId={appId} />
             </Col>
-            <Col xxl={12} xl={9} lg={12} md={24} sm={24} xs={24}>
+            <Col xxl={12} xl={12} lg={12} md={24} sm={24} xs={24}>
               <ScreenShot appId={appId} />
             </Col>
           </Row>
