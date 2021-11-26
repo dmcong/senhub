@@ -1,11 +1,13 @@
-import { useSelector } from 'react-redux'
 import { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
 
 import { Card, Carousel } from 'antd'
 
 import { RootState } from 'os/store'
 
+const MAX_WIDTH = 1440
 const PAGE_PADDING = 20
+const IMAGE_RATIO = 1 / 3
 
 const BannerTop = () => {
   const [listBanner, setListBanner] = useState<string[]>([])
@@ -25,8 +27,8 @@ const BannerTop = () => {
   }, [])
 
   const calculateBannerHeight = () => {
-    if (width > 1440) return 1440 / 3
-    return (width - PAGE_PADDING * 2) / 3
+    if (width > MAX_WIDTH) return MAX_WIDTH * IMAGE_RATIO
+    return (width - PAGE_PADDING * 2) * IMAGE_RATIO
   }
 
   return (
